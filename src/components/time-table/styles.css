@@ -1,0 +1,11 @@
+table { min-width: 100%; border-collapse: collapse;}
+/* tr{ width: 100%;} */
+td { border: 1px solid #d4d5d5; }
+th { border: 1px solid #b7b8b8; background-color: #cccccc;}
+#red {background-color:#f4cccc;}
+#green {background-color:#d9ead3;}
+#yellow {background-color:#fff2cc;}
+/* td table { 
+  margin: -2px;
+  
+} */

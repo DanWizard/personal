@@ -1,25 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Home from "./containers/home";
+import { RowsProvider } from "./context/rowsContext";
+import { onetime } from "./components/nums/onetime";
+import { monthly } from "./components/nums/monthly";
+import { time } from "./components/nums/time";
 
 function App() {
+  const [rows, setRows] = useState({
+    timeNums: time,
+    monthlyNums: monthly,
+    onetimeNums: onetime,
+  });
+
+  const handleChangeRowValue = (table, row, column, updatedValue) => {
+    debugger;
+    setRows({
+      ...rows,
+      [table]: {
+        ...rows[table],
+        [row]: [
+          ...rows[table][row].slice(0, column),
+          updatedValue,
+          ...rows[table][row].slice(column + 1),
+        ],
+      },
+    });
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <RowsProvider value={{ rows, updateRows: handleChangeRowValue }}>
+      <Home rows={rows} />;
+    </RowsProvider>
   );
 }
 
