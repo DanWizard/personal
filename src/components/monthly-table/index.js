@@ -5,9 +5,9 @@ import RowsContext from "../../context/rowsContext";
 import { monthlyCalc } from "../../services/calculations";
 
 const MonthlyTable = ({ nums }) => {
-  const { updateRows } = useContext(RowsContext);
+  const { updateCell } = useContext(RowsContext);
 
-  const { expenseSum, incomeSum, assetsSum } = monthlyCalc(nums, updateRows);
+  const { expenseSum, incomeSum, assetsSum } = monthlyCalc(nums, updateCell);
 
   return (
     <table>

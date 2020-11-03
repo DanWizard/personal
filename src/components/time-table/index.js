@@ -5,7 +5,7 @@ import RowsContext from "../../context/rowsContext";
 import { onetimeCalc, monthlyCalc } from "../../services/calculations";
 
 const TimeTable = ({ nums }) => {
-  const { rows, updateRows } = useContext(RowsContext);
+  const { rows, updateCell, updateTable } = useContext(RowsContext);
 
   const dilute = (set) => {
     let sum = 0;
@@ -15,6 +15,18 @@ const TimeTable = ({ nums }) => {
       }
     });
     return sum;
+  };
+
+  const calcTime = (mts) => {
+    // [sec, min, hr, dys, wks, mts, yrs]
+    const yrs = mts / 12;
+    const wks = mts * 4.34812;
+    const dys = wks * 7;
+    const hr = dys * 24;
+    const min = hr * 60;
+    const sec = min * 60;
+
+    return [sec, min, hr, dys, wks, mts, yrs];
   };
 
   const doMath = () => {
@@ -39,7 +51,32 @@ const TimeTable = ({ nums }) => {
 
     monthlyExpenseDiluted = dilute(m.durationSet.expense);
     monthlyIncomeDiluted = dilute(m.durationSet.income);
+    monthsCount =
+      (fixedAssets + monthlyIncomeDiluted - fixedExpense) / monthlyExpense;
+
+    if (
+      (monthlyExpenseDiluted + fixedExpense === 0 &&
+        fixedAssets + monthlyIncomeDiluted === 0) ||
+      monthsCount === rows.timeNums.a[5] ||
+      (monthsCount === Infinity && rows.timeNums.a[5] === "∞")
+    ) {
+      debugger;
+      return;
+    }
     debugger;
+    if (
+      monthlyExpenseDiluted + fixedExpense <
+        fixedAssets + monthlyIncomeDiluted &&
+      rows.timeNums.a[5] !== "∞"
+    ) {
+      updateTable("timeNums", { a: ["∞", "∞", "∞", "∞", "∞", "∞", "∞"] });
+    } else if (
+      monthlyExpenseDiluted + fixedExpense >
+      fixedAssets + monthlyIncomeDiluted
+    ) {
+      const temp = calcTime(monthsCount);
+      updateTable("timeNums", { a: temp });
+    }
   };
 
   doMath();

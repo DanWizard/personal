@@ -11,7 +11,7 @@ import TimeTable from "../../components/time-table";
 import RowsContext from "../../context/rowsContext";
 
 const Home = () => {
-  const { rows, updateRows } = useContext(RowsContext);
+  const { rows, updateCell } = useContext(RowsContext);
 
   const { monthlyNums, onetimeNums, timeNums } = rows;
 

@@ -12,7 +12,14 @@ function App() {
     onetimeNums: onetime,
   });
 
-  const handleChangeRowValue = (table, row, column, updatedValue) => {
+  const handleChangeTable = (table, updatedValue) => {
+    setRows({
+      ...rows,
+      [table]: updatedValue,
+    });
+  };
+
+  const handleChangeCell = (table, row, column, updatedValue) => {
     // debugger;
     setRows({
       ...rows,
@@ -27,7 +34,13 @@ function App() {
     });
   };
   return (
-    <RowsProvider value={{ rows, updateRows: handleChangeRowValue }}>
+    <RowsProvider
+      value={{
+        rows,
+        updateCell: handleChangeCell,
+        updateTable: handleChangeTable,
+      }}
+    >
       <Home rows={rows} />;
     </RowsProvider>
   );

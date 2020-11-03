@@ -14,7 +14,7 @@ export const Cell = ({
   row,
   column,
 }) => {
-  const { updateRows } = useContext(RowsContext);
+  const { updateCell } = useContext(RowsContext);
 
   return (
     <td colSpan={colSpan} style={{ background: "#efefef", ...style }}>
@@ -22,7 +22,7 @@ export const Cell = ({
         <StyledInput
           onChange={(e, v) => {
             // debugger;
-            updateRows(table, row, column, e.target.value);
+            updateCell(table, row, column, e.target.value);
           }}
           value={value}
           type={numberOnly && "number"}
