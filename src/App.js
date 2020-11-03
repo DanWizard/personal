@@ -13,7 +13,7 @@ function App() {
   });
 
   const handleChangeRowValue = (table, row, column, updatedValue) => {
-    debugger;
+    // debugger;
     setRows({
       ...rows,
       [table]: {
